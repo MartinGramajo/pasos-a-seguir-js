@@ -6,14 +6,30 @@ import { renderProducts } from './helpers.js';
 const products = platos
 let productos = products;
 
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
 
 // capturo el html 
 const articulos = document.getElementById('articulos');
 
 const search = document.getElementById('search');
 
+const cartWidget = document.getElementById('cartWidget');
+
 
 // trabajo la logica
+// mostrar la cantidad de productos que agregue al carrito en el navbar 
+const renderCart = () => {
+  cartWidget.innerHTML = ''
+  let cartTotal = 0;
+  cart.forEach((item, i) => (
+    cartTotal += item.q
+  ))
+  if (cartTotal > 0) {
+    cartWidget.innerHTML = `<span class="text-white badge rounded-pill text-bg-danger">${cartTotal}</span>`
+  }
+}
+
 search.addEventListener('input', () => {
   // value ingresado por el usuario 
   const valorIngresado = search.value.toLowerCase()
@@ -52,7 +68,7 @@ search.addEventListener('input', () => {
 // }
 
 renderProducts(products, articulos);
-
+renderCart()
 
 // limpio o reinicio
 

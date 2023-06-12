@@ -16,9 +16,27 @@ const cart = JSON.parse(localStorage.getItem("cart")) || [];
 // capturo el html 
 const main = document.getElementById('main');
 
+const cartWidget = document.getElementById('cartWidget');
+
 // trabajo la logica
 
 // mostrar la cantidad de productos que agregue al carrito en el navbar 
+const renderCart = () => {
+	cartWidget.innerHTML = ''
+	let cartTotal = 0;
+	cart.forEach((item, i) => (
+		cartTotal += item.q
+	))
+	if (cartTotal > 0) {
+		cartWidget.innerHTML = `<span class="text-white badge rounded-pill text-bg-danger">${cartTotal}</span>`
+
+	}
+}
+
+
+
+
+// mapeo 
 if (product) {
 	main.innerHTML = `<article class="card border-0 py-5">
 			<img src=${product.image} class="object-fit-contain pt-2 px-2" style="height: 250px" id="image">
@@ -70,7 +88,7 @@ if (product) {
 			cantidad.innerHTML,
 		)
 	))
-
+	renderCart()
 } else {
 	main.innerHTML = `<h2>404 product not found</h2>`;
 }
