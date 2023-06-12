@@ -15,10 +15,13 @@ const search = document.getElementById('search');
 
 // trabajo la logica
 search.addEventListener('input', () => {
+  // value ingresado por el usuario 
+  const valorIngresado = search.value.toLowerCase()
+  // filtrado
   productos = products.filter(product =>
     product.title
       .toLowerCase()
-      .includes(search.value.toLowerCase())
+      .includes(valorIngresado)
   );
   renderProducts(productos, articulos);
 });
